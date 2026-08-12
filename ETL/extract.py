@@ -1,19 +1,17 @@
 import pandas as pd
-import logging
-
 from config import DATA_DIR
+from logger import get_logger
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = get_logger(name=__name__)
 
 
 def _read_csv(file_path, data_name):
     try:
         data = pd.read_csv(file_path, encoding="utf-8")
-        logger.info(f'Extracted {data_name} data')
+        logger.info(f"Extracted {data_name} data")
         return data
     except FileNotFoundError:
-        logger.error(f'{data_name} dataset not found')
+        logger.error(f"{data_name} dataset not found")
         raise
     except Exception as e:
         logger.error(f"Error reading {data_name} data: {e}")
